@@ -4,6 +4,17 @@ dist-ssr
 *.local
 *.tsbuildinfo
 
+# python
+.venv
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# cached source data — re-fetchable, too large for git
+data/raw/
+data/derived/
+
 .DS_Store
 *.log
 npm-debug.log*

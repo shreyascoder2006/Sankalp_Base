@@ -58,14 +58,25 @@ def solve(
     lots: list[Lot],
     capacity_kg: float | None = None,
     policy: PoolPolicy = PoolPolicy(),
+    origin_key: str | None = None,
+    dest_key: str | None = None,
 ) -> PooledRoute:
     capacity = capacity_kg or TRUCK_CAPACITY_KG.value
-    usable = [lot for lot in lots if lot.point_key in index.point_index]
+    origin = index.point_index[origin_key] if origin_key else index.origin
+    dest = index.point_index[dest_key] if dest_key else index.dest
+    base_km = float(index.matrix.km[origin, dest])
+
+    usable = [
+        lot
+        for lot in lots
+        if lot.point_key in index.point_index
+        and index.point_index[lot.point_key] not in (origin, dest)
+    ]
     if not usable:
-        return PooledRoute([], list(lots), [], index.trunk_km, 0.0)
+        return PooledRoute([], list(lots), [], base_km, 0.0)
 
     # node 0 = origin, node 1 = destination, 2.. = lots
-    nodes = [index.origin, index.dest] + [index.point_index[lot.point_key] for lot in usable]
+    nodes = [origin, dest] + [index.point_index[lot.point_key] for lot in usable]
     km, minutes = index.matrix.km, index.matrix.minutes
 
     def cost_paise(a: int, b: int) -> int:
@@ -109,7 +120,7 @@ def solve(
     routing.AddDimension(visits, 0, policy.max_stops, True, "stops")
 
     for n in range(2, len(nodes)):
-        penalty = int(_lot_revenue(usable[n - 2].weight_kg, index.trunk_km) * 100)
+        penalty = int(_lot_revenue(usable[n - 2].weight_kg, base_km) * 100)
         routing.AddDisjunction([manager.NodeToIndex(n)], penalty)
 
     params = pywrapcp.DefaultRoutingSearchParameters()
@@ -121,7 +132,7 @@ def solve(
 
     solution = routing.SolveWithParameters(params)
     if solution is None:
-        return PooledRoute([], list(lots), [], index.trunk_km, 0.0)
+        return PooledRoute([], list(lots), [], base_km, 0.0)
 
     order, served, total_km, total_min = [], [], 0.0, 0.0
     idx = routing.Start(0)

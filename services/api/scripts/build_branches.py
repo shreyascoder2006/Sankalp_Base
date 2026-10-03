@@ -4,6 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -78,6 +79,15 @@ def main() -> int:
             )
     df = pd.DataFrame(rows).sort_values(["branch_id", "solo_detour_km"])
     df.to_parquet(derived / "branches.parquet", index=False)
+
+    # Matching needs the same point-to-point costs; cache rather than recompute.
+    np.savez_compressed(derived / "matrix.npz", km=m.km, minutes=m.minutes)
+    pd.DataFrame(
+        [
+            {"key": p.key, "name": p.name, "lon": p.lon, "lat": p.lat, "snap_m": p.snap_m}
+            for p in m.points
+        ]
+    ).to_parquet(derived / "points.parquet", index=False)
 
     print(f"\nbranches {len(branches)}  (threshold {args.threshold} km)\n")
     print(f"{'id':>3} {'n':>3} {'entry_km':>9} {'full_km':>8} {'per_extra':>10}  members")

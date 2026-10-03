@@ -49,6 +49,9 @@ DEFAULT_SURFACE_FACTOR = 0.8  # untagged rural road: assume partly unpaved
 # Highway classes an SCV may not legally or practically use.
 EXCLUDED = {"footway", "path", "cycleway", "steps", "pedestrian", "bridleway", "corridor"}
 
+# Way tags that affect traversability, speed or direction.
+WAY_SPEED_TAGS = ("highway", "surface", "smoothness", "motor_vehicle", "access", "oneway")
+
 # Fixed time cost of a loading stop, independent of distance.
 STOP_SERVICE_MINUTES = 12.0
 

@@ -14,7 +14,9 @@ import pandas as pd  # noqa: E402
 from core.geo.corridor import CORRIDORS  # noqa: E402
 from core.geo.graph import load as load_graph  # noqa: E402
 from core.geo.index import load_index  # noqa: E402
+from core.pricing import economics as econ  # noqa: E402
 from twin.scenarios import SCENARIOS, run_scenario  # noqa: E402
+
 
 DATA = ROOT.parents[1] / "data"
 OUT = ROOT.parents[1] / "apps" / "twin-3d" / "public" / "scenarios.json"
@@ -50,7 +52,7 @@ def main() -> int:
         r = run_scenario(spec, idx, graph)
         print(
             f"{spec.key:<15} served {r.facts['served']}  unserved {r.facts['unserved']}  "
-            f"detour {r.facts['detour_km']} km  cheapest ₹{r.facts['cheapest_fare']:.0f}"
+            f"detour {r.facts['detour_km']} km  cheapest Rs {r.facts['cheapest_fare']:.0f}"
         )
         out_scenarios.append(
             {
@@ -89,6 +91,26 @@ def main() -> int:
             for r in branches.itertuples(index=False)
         ],
         "scenarios": out_scenarios,
+        "economics": [
+            {
+                "name": name,
+                "value": getattr(econ, name).value,
+                "provenance": getattr(econ, name).provenance.value,
+                "source": getattr(econ, name).source,
+            }
+            for name in (
+                "DIESEL_PRICE_PER_L",
+                "SCV_MILEAGE_KMPL_LADEN",
+                "TRUCK_CAPACITY_KG",
+                "FULL_TRUCK_FARE_PER_KM",
+                "PLATFORM_FEE_PCT",
+                "HANDLING_PER_STOP",
+                "CO2_KG_PER_L_DIESEL",
+            )
+        ],
+        "days": json.loads((ROOT.parents[1] / "apps" / "twin-ui" / "public" / "twin.json").read_text()).get("days", [])
+        if (ROOT.parents[1] / "apps" / "twin-ui" / "public" / "twin.json").exists()
+        else [],
         "provenance": {
             "road_geometry": "REAL", "terrain": "REAL" if elev else "ABSENT",
             "routes": "REAL", "fares": "MODELED", "situations": "AUTHORED",

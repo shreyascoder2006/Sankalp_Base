@@ -1,0 +1,705 @@
+{
+  "generated_at": "2026-10-04T02:02:01.226838+00:00",
+  "corridor": {
+    "name": "Pimpalgaon Baswant to Nashik APMC",
+    "trunk_km": 30.16,
+    "source": "https://download.geofabrik.de/asia/india/western-zone-latest.osm.pbf",
+    "licence": "OpenStreetMap contributors, ODbL"
+  },
+  "provenance_note": "Road geometry and landholding distribution are real. Farmer and driver behaviour are uncalibrated simulated parameters: the harvest model has not been validated against observed mandi arrivals.",
+  "calibrated": false,
+  "points": [
+    {
+      "key": "pimpalgaon",
+      "name": "Pimpalgaon Basvant",
+      "lon": 73.99262,
+      "lat": 20.16876
+    },
+    {
+      "key": "nashik_apmc",
+      "name": "Nashik APMC",
+      "lon": 73.79,
+      "lat": 20.02
+    },
+    {
+      "key": "v659849286",
+      "name": "Ojhar",
+      "lon": 73.9279539,
+      "lat": 20.0943037
+    },
+    {
+      "key": "v2678903678",
+      "name": "Mohadi",
+      "lon": 73.891865,
+      "lat": 20.1439719
+    },
+    {
+      "key": "v3062514230",
+      "name": "Karanjgaon",
+      "lon": 74.0739469,
+      "lat": 20.0160923
+    },
+    {
+      "key": "v3062514231",
+      "name": "Lakhalgaon",
+      "lon": 73.9213267,
+      "lat": 19.9986717
+    },
+    {
+      "key": "v3062659455",
+      "name": "Chapadgaon",
+      "lon": 74.0911143,
+      "lat": 20.0126976
+    },
+    {
+      "key": "v3062694614",
+      "name": "Saikheda",
+      "lon": 74.0090789,
+      "lat": 20.0161966
+    },
+    {
+      "key": "v3062694615",
+      "name": "Chandori",
+      "lon": 73.9991226,
+      "lat": 20.0233135
+    },
+    {
+      "key": "v3062694616",
+      "name": "Nagapur",
+      "lon": 73.9861857,
+      "lat": 20.0034328
+    },
+    {
+      "key": "v3227967162",
+      "name": "Jopul",
+      "lon": 73.9063916,
+      "lat": 20.1994067
+    },
+    {
+      "key": "v3227967163",
+      "name": "Karsul",
+      "lon": 74.0302858,
+      "lat": 20.1415208
+    },
+    {
+      "key": "v3227967164",
+      "name": "Korhate",
+      "lon": 73.8709361,
+      "lat": 20.1633175
+    },
+    {
+      "key": "v3227967631",
+      "name": "Sakore",
+      "lon": 73.9426694,
+      "lat": 20.1481995
+    },
+    {
+      "key": "v3635085744",
+      "name": "Shilapur",
+      "lon": 73.899438,
+      "lat": 19.9963892
+    },
+    {
+      "key": "v3635085746",
+      "name": "Lakhalgaon",
+      "lon": 73.9225032,
+      "lat": 19.9999982
+    },
+    {
+      "key": "v5696373231",
+      "name": "Bhuse",
+      "lon": 74.0940611,
+      "lat": 19.9998169
+    },
+    {
+      "key": "v6366213199",
+      "name": "Kothure",
+      "lon": 74.0753174,
+      "lat": 20.0461047
+    },
+    {
+      "key": "v6395445092",
+      "name": "Pimpalas",
+      "lon": 74.0451479,
+      "lat": 20.0700402
+    },
+    {
+      "key": "v6395446086",
+      "name": "Shingave",
+      "lon": 74.0404272,
+      "lat": 20.0337577
+    },
+    {
+      "key": "v7016330787",
+      "name": "Dindori",
+      "lon": 73.8325882,
+      "lat": 20.2037292
+    }
+  ],
+  "branches": [
+    {
+      "branch_id": 0,
+      "key": "v3635085746",
+      "name": "Lakhalgaon",
+      "lon": 73.9225032,
+      "lat": 19.9999982,
+      "solo_detour_km": 10.26,
+      "branch_entry_km": 10.26,
+      "branch_full_km": 11.51,
+      "branch_size": 3
+    },
+    {
+      "branch_id": 0,
+      "key": "v3062514231",
+      "name": "Lakhalgaon",
+      "lon": 73.9213267,
+      "lat": 19.9986717,
+      "solo_detour_km": 10.82,
+      "branch_entry_km": 10.26,
+      "branch_full_km": 11.51,
+      "branch_size": 3
+    },
+    {
+      "branch_id": 0,
+      "key": "v3635085744",
+      "name": "Shilapur",
+      "lon": 73.899438,
+      "lat": 19.9963892,
+      "solo_detour_km": 11.56,
+      "branch_entry_km": 10.26,
+      "branch_full_km": 11.51,
+      "branch_size": 3
+    },
+    {
+      "branch_id": 1,
+      "key": "v2678903678",
+      "name": "Mohadi",
+      "lon": 73.891865,
+      "lat": 20.1439719,
+      "solo_detour_km": 8.48,
+      "branch_entry_km": 8.48,
+      "branch_full_km": 8.74,
+      "branch_size": 2
+    },
+    {
+      "branch_id": 1,
+      "key": "v3227967631",
+      "name": "Sakore",
+      "lon": 73.9426694,
+      "lat": 20.1481995,
+      "solo_detour_km": 8.74,
+      "branch_entry_km": 8.48,
+      "branch_full_km": 8.74,
+      "branch_size": 2
+    },
+    {
+      "branch_id": 2,
+      "key": "v3062694615",
+      "name": "Chandori",
+      "lon": 73.9991226,
+      "lat": 20.0233135,
+      "solo_detour_km": 17.14,
+      "branch_entry_km": 17.14,
+      "branch_full_km": 19.07,
+      "branch_size": 2
+    },
+    {
+      "branch_id": 2,
+      "key": "v3062694616",
+      "name": "Nagapur",
+      "lon": 73.9861857,
+      "lat": 20.0034328,
+      "solo_detour_km": 18.32,
+      "branch_entry_km": 17.14,
+      "branch_full_km": 19.07,
+      "branch_size": 2
+    },
+    {
+      "branch_id": 3,
+      "key": "v659849286",
+      "name": "Ojhar",
+      "lon": 73.9279539,
+      "lat": 20.0943037,
+      "solo_detour_km": 0.24,
+      "branch_entry_km": 0.24,
+      "branch_full_km": 0.24,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 4,
+      "key": "v3062514230",
+      "name": "Karanjgaon",
+      "lon": 74.0739469,
+      "lat": 20.0160923,
+      "solo_detour_km": 27.72,
+      "branch_entry_km": 27.72,
+      "branch_full_km": 27.72,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 5,
+      "key": "v3062659455",
+      "name": "Chapadgaon",
+      "lon": 74.0911143,
+      "lat": 20.0126976,
+      "solo_detour_km": 31.58,
+      "branch_entry_km": 31.58,
+      "branch_full_km": 31.58,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 6,
+      "key": "v3062694614",
+      "name": "Saikheda",
+      "lon": 74.0090789,
+      "lat": 20.0161966,
+      "solo_detour_km": 21.42,
+      "branch_entry_km": 21.42,
+      "branch_full_km": 21.42,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 7,
+      "key": "v3227967162",
+      "name": "Jopul",
+      "lon": 73.9063916,
+      "lat": 20.1994067,
+      "solo_detour_km": 11.35,
+      "branch_entry_km": 11.35,
+      "branch_full_km": 11.35,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 8,
+      "key": "v3227967163",
+      "name": "Karsul",
+      "lon": 74.0302858,
+      "lat": 20.1415208,
+      "solo_detour_km": 10.77,
+      "branch_entry_km": 10.77,
+      "branch_full_km": 10.77,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 9,
+      "key": "v3227967164",
+      "name": "Korhate",
+      "lon": 73.8709361,
+      "lat": 20.1633175,
+      "solo_detour_km": 15.0,
+      "branch_entry_km": 15.0,
+      "branch_full_km": 15.0,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 10,
+      "key": "v5696373231",
+      "name": "Bhuse",
+      "lon": 74.0940611,
+      "lat": 19.9998169,
+      "solo_detour_km": 33.11,
+      "branch_entry_km": 33.11,
+      "branch_full_km": 33.11,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 11,
+      "key": "v6366213199",
+      "name": "Kothure",
+      "lon": 74.0753174,
+      "lat": 20.0461047,
+      "solo_detour_km": 25.25,
+      "branch_entry_km": 25.25,
+      "branch_full_km": 25.25,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 12,
+      "key": "v6395445092",
+      "name": "Pimpalas",
+      "lon": 74.0451479,
+      "lat": 20.0700402,
+      "solo_detour_km": 21.92,
+      "branch_entry_km": 21.92,
+      "branch_full_km": 21.92,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 13,
+      "key": "v6395446086",
+      "name": "Shingave",
+      "lon": 74.0404272,
+      "lat": 20.0337577,
+      "solo_detour_km": 29.99,
+      "branch_entry_km": 29.99,
+      "branch_full_km": 29.99,
+      "branch_size": 1
+    },
+    {
+      "branch_id": 14,
+      "key": "v7016330787",
+      "name": "Dindori",
+      "lon": 73.8325882,
+      "lat": 20.2037292,
+      "solo_detour_km": 14.31,
+      "branch_entry_km": 14.31,
+      "branch_full_km": 14.31,
+      "branch_size": 1
+    }
+  ],
+  "marginal_curve": [
+    {
+      "label": "direct run",
+      "stops": 0,
+      "km": 30.16,
+      "marginal_km": 0.0
+    },
+    {
+      "label": "+ Sakore",
+      "stops": 1,
+      "km": 38.89,
+      "marginal_km": 8.74
+    },
+    {
+      "label": "+ Mohadi",
+      "stops": 2,
+      "km": 38.89,
+      "marginal_km": -0.0
+    },
+    {
+      "label": "+ Korhate",
+      "stops": 3,
+      "km": 45.4,
+      "marginal_km": 6.51
+    }
+  ],
+  "sharing": [
+    {
+      "shared_by": 1,
+      "ours": 333.94,
+      "brief": 271.12,
+      "full_truck": 1507.76
+    },
+    {
+      "shared_by": 2,
+      "ours": 291.67,
+      "brief": 271.12,
+      "full_truck": 1507.76
+    },
+    {
+      "shared_by": 3,
+      "ours": 276.71,
+      "brief": 271.12,
+      "full_truck": 1507.76
+    },
+    {
+      "shared_by": 4,
+      "ours": 269.22,
+      "brief": 271.12,
+      "full_truck": 1507.76
+    }
+  ],
+  "cascade": [
+    {
+      "key": "harvest",
+      "headline": "lots offered",
+      "value": 28.0,
+      "unit": "lots",
+      "provenance": "SIMULATED",
+      "evidenced": true,
+      "detail": "farmer offer rate is an uncalibrated parameter; Phase 4 fits it to Agmarknet"
+    },
+    {
+      "key": "truck_supply",
+      "headline": "trucks running",
+      "value": 35.0,
+      "unit": "trucks",
+      "provenance": "SIMULATED",
+      "evidenced": true,
+      "detail": "declared trips; real once drivers are onboarded"
+    },
+    {
+      "key": "matching",
+      "headline": "lots matched",
+      "value": 22.0,
+      "unit": "lots",
+      "provenance": "MODELED",
+      "evidenced": true,
+      "detail": "core matching, the same code the bot would run"
+    },
+    {
+      "key": "routing",
+      "headline": "detour driven",
+      "value": 146.72,
+      "unit": "km",
+      "provenance": "REAL",
+      "evidenced": true,
+      "detail": "distances come from the OSM road graph, validated against OSRM"
+    },
+    {
+      "key": "pricing",
+      "headline": "farmer spend",
+      "value": 11797.16,
+      "unit": "INR",
+      "provenance": "MODELED",
+      "evidenced": true,
+      "detail": "fare formula is real; the truck rate it scales is not yet sourced"
+    },
+    {
+      "key": "backhaul",
+      "headline": "return legs filled",
+      "value": 0.0,
+      "unit": "legs",
+      "provenance": "SIMULATED",
+      "evidenced": false,
+      "detail": "no backhaul demand data exists publicly; excluded until dealers are signed"
+    },
+    {
+      "key": "emissions",
+      "headline": "CO2 from detours",
+      "value": 39.32,
+      "unit": "kg",
+      "provenance": "MODELED",
+      "evidenced": true,
+      "detail": "real emission factor applied to real distances over a modelled day"
+    },
+    {
+      "key": "outcomes",
+      "headline": "saved vs full-truck hire",
+      "value": 21373.63,
+      "unit": "INR",
+      "provenance": "MODELED",
+      "evidenced": true,
+      "detail": "counterfactual assumes each farmer would otherwise hire a whole truck"
+    }
+  ],
+  "cascade_confidence": "SIMULATED",
+  "days": [
+    {
+      "day": 0,
+      "lots_offered": 28,
+      "lots_served": 22,
+      "match_rate": 0.7857,
+      "trucks_running": 35,
+      "trips": 14,
+      "forward_fill_rate": 0.4,
+      "detour_km": 146.72,
+      "revenue": 11797.16,
+      "co2_kg": 39.32
+    },
+    {
+      "day": 1,
+      "lots_offered": 19,
+      "lots_served": 19,
+      "match_rate": 1.0,
+      "trucks_running": 34,
+      "trips": 14,
+      "forward_fill_rate": 0.4118,
+      "detour_km": 198.97,
+      "revenue": 11453.31,
+      "co2_kg": 53.32
+    },
+    {
+      "day": 2,
+      "lots_offered": 32,
+      "lots_served": 31,
+      "match_rate": 0.9688,
+      "trucks_running": 30,
+      "trips": 14,
+      "forward_fill_rate": 0.4667,
+      "detour_km": 189.5,
+      "revenue": 14615.16,
+      "co2_kg": 50.79
+    },
+    {
+      "day": 3,
+      "lots_offered": 31,
+      "lots_served": 30,
+      "match_rate": 0.9677,
+      "trucks_running": 36,
+      "trips": 15,
+      "forward_fill_rate": 0.4167,
+      "detour_km": 227.88,
+      "revenue": 16189.08,
+      "co2_kg": 61.07
+    },
+    {
+      "day": 4,
+      "lots_offered": 28,
+      "lots_served": 26,
+      "match_rate": 0.9286,
+      "trucks_running": 32,
+      "trips": 15,
+      "forward_fill_rate": 0.4688,
+      "detour_km": 172.66,
+      "revenue": 13037.62,
+      "co2_kg": 46.27
+    },
+    {
+      "day": 5,
+      "lots_offered": 23,
+      "lots_served": 23,
+      "match_rate": 1.0,
+      "trucks_running": 32,
+      "trips": 14,
+      "forward_fill_rate": 0.4375,
+      "detour_km": 110.24,
+      "revenue": 13067.92,
+      "co2_kg": 29.54
+    },
+    {
+      "day": 6,
+      "lots_offered": 15,
+      "lots_served": 15,
+      "match_rate": 1.0,
+      "trucks_running": 38,
+      "trips": 9,
+      "forward_fill_rate": 0.2368,
+      "detour_km": 146.22,
+      "revenue": 7821.82,
+      "co2_kg": 39.19
+    }
+  ],
+  "sweep": [
+    {
+      "farmers": 100,
+      "trucks": 15,
+      "per_truck": 6.7,
+      "match_rate": 0.75,
+      "forward_fill_rate": 0.2727,
+      "mean_detour_km": 2.33
+    },
+    {
+      "farmers": 100,
+      "trucks": 30,
+      "per_truck": 3.3,
+      "match_rate": 1.0,
+      "forward_fill_rate": 0.2353,
+      "mean_detour_km": 4.73
+    },
+    {
+      "farmers": 100,
+      "trucks": 60,
+      "per_truck": 1.7,
+      "match_rate": 1.0,
+      "forward_fill_rate": 0.1143,
+      "mean_detour_km": 4.73
+    },
+    {
+      "farmers": 200,
+      "trucks": 15,
+      "per_truck": 13.3,
+      "match_rate": 0.7778,
+      "forward_fill_rate": 0.5455,
+      "mean_detour_km": 10.31
+    },
+    {
+      "farmers": 200,
+      "trucks": 30,
+      "per_truck": 6.7,
+      "match_rate": 0.8889,
+      "forward_fill_rate": 0.4118,
+      "mean_detour_km": 8.89
+    },
+    {
+      "farmers": 200,
+      "trucks": 60,
+      "per_truck": 3.3,
+      "match_rate": 1.0,
+      "forward_fill_rate": 0.2286,
+      "mean_detour_km": 9.66
+    },
+    {
+      "farmers": 400,
+      "trucks": 15,
+      "per_truck": 26.7,
+      "match_rate": 0.3929,
+      "forward_fill_rate": 0.5455,
+      "mean_detour_km": 7.18
+    },
+    {
+      "farmers": 400,
+      "trucks": 30,
+      "per_truck": 13.3,
+      "match_rate": 0.4643,
+      "forward_fill_rate": 0.4706,
+      "mean_detour_km": 8.79
+    },
+    {
+      "farmers": 400,
+      "trucks": 60,
+      "per_truck": 6.7,
+      "match_rate": 0.7857,
+      "forward_fill_rate": 0.4,
+      "mean_detour_km": 10.48
+    },
+    {
+      "farmers": 800,
+      "trucks": 15,
+      "per_truck": 53.3,
+      "match_rate": 0.3571,
+      "forward_fill_rate": 0.6364,
+      "mean_detour_km": 7.03
+    },
+    {
+      "farmers": 800,
+      "trucks": 30,
+      "per_truck": 26.7,
+      "match_rate": 0.5,
+      "forward_fill_rate": 0.5882,
+      "mean_detour_km": 8.65
+    },
+    {
+      "farmers": 800,
+      "trucks": 60,
+      "per_truck": 13.3,
+      "match_rate": 0.9524,
+      "forward_fill_rate": 0.6571,
+      "mean_detour_km": 15.73
+    }
+  ],
+  "economics": [
+    {
+      "name": "DIESEL_PRICE_PER_L",
+      "value": 97.83,
+      "provenance": "REAL",
+      "source": "Mumbai retail, Sep 2026 (The Core). Nashik district differs; verify before pitch."
+    },
+    {
+      "name": "SCV_MILEAGE_KMPL_LADEN",
+      "value": 10.0,
+      "provenance": "MODELED",
+      "source": "brief assumes 12 km/L; laden pickups on mixed rural surface typically run lower"
+    },
+    {
+      "name": "TRUCK_CAPACITY_KG",
+      "value": 1500.0,
+      "provenance": "REAL",
+      "source": "Mahindra Bolero Pickup rated payload"
+    },
+    {
+      "name": "FULL_TRUCK_FARE_PER_KM",
+      "value": 50.0,
+      "provenance": "MODELED",
+      "source": "derived from the brief's unsourced ~Rs2000 / ~40 km example; Phase 0 must replace"
+    },
+    {
+      "name": "PLATFORM_FEE_PCT",
+      "value": 0.08,
+      "provenance": "MODELED",
+      "source": "brief proposes 8-10%, to be validated"
+    },
+    {
+      "name": "HANDLING_PER_STOP",
+      "value": 25.0,
+      "provenance": "MODELED",
+      "source": "loading time and driver effort per pickup; no source yet"
+    },
+    {
+      "name": "CO2_KG_PER_L_DIESEL",
+      "value": 2.68,
+      "provenance": "REAL",
+      "source": "standard diesel emission factor"
+    }
+  ]
+}

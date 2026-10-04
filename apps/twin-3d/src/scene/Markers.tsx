@@ -68,10 +68,8 @@ export default function Markers({
             ? act.served ? '#3ddc97' : '#f0b429'
             : v.branch_size > 1 ? '#2f6a55' : '#39434f'
 
-        // ~700 m across for a village, a little more where it matters to this scenario
-        const radius = (inPlay ? 3.6 : 2.8) + (v.branch_size > 1 ? 0.5 : 0)
+        const radius = (inPlay ? 6.0 : 4.5) + (v.branch_size > 1 ? 0.8 : 0)
         const waiting = un ? un.load_kg : act && !act.served ? act.kg : 0
-        const h = Math.min(waiting / 45, 12)
 
         return (
           <group key={v.key} position={[x, y, z]}>
@@ -84,29 +82,94 @@ export default function Markers({
               <Settlement seed={v.key} radius={radius} colour={colour} lit={inPlay} />
             </group>
 
-            {h > 0.1 && (
-              <mesh position={[0, h / 2, 0]}>
-                <cylinderGeometry args={[0.8, 0.8, h, 12]} />
-                <meshStandardMaterial
-                  color={colour} emissive={colour} emissiveIntensity={0.5}
-                  transparent opacity={0.78}
-                />
-              </mesh>
+            {/* Realistic Roadside Produce Crate Stacks & Scale at Farm Gate — Proportional */}
+            {waiting > 0 && (
+              <group position={[radius * 0.75, 0, radius * 0.75]}>
+                {/* Pallet base */}
+                <mesh position={[0, 0.2, 0]}>
+                  <boxGeometry args={[3.8, 0.4, 3.8]} />
+                  <meshStandardMaterial color="#8d6e63" roughness={0.9} />
+                </mesh>
+                {/* Tiered harvest crates */}
+                {[0, 1, 2].map((cr) => (
+                  <mesh key={cr} position={[0, 0.55 + cr * 0.7, 0]} castShadow>
+                    <boxGeometry args={[3.1, 0.6, 3.1]} />
+                    <meshStandardMaterial
+                      color={cr % 2 === 0 ? '#d93829' : '#e67e22'}
+                      roughness={0.65}
+                    />
+                  </mesh>
+                ))}
+                {/* Digital platform scale bench */}
+                <mesh position={[2.6, 0.6, 0]}>
+                  <boxGeometry args={[1.4, 1.1, 1.4]} />
+                  <meshStandardMaterial color="#4a5568" />
+                </mesh>
+              </group>
             )}
 
+            {/* Realistic 3D Farm-Gate Telemetry Pin — Proportional & Clearly Legible */}
             {inPlay && (
-              <Billboard position={[0, h + 5.2, 0]}>
-                <Text fontSize={2.3} color={colour} anchorY="bottom" outlineWidth={0.1} outlineColor="#0a0f14">
+              <Billboard position={[0, 14, 0]}>
+                {/* Badge Container Box */}
+                <mesh position={[0, 0, -0.05]}>
+                  <planeGeometry args={[12, 4.2]} />
+                  <meshBasicMaterial color="#080e18" transparent opacity={0.92} />
+                </mesh>
+                <mesh position={[0, 0, -0.07]}>
+                  <planeGeometry args={[12.3, 4.5]} />
+                  <meshBasicMaterial color={colour} transparent opacity={0.7} />
+                </mesh>
+
+                {/* Crop Icon */}
+                <Text
+                  position={[-4.8, 0.4, 0]}
+                  fontSize={1.8}
+                  anchorX="center"
+                  anchorY="middle"
+                >
+                  {v.name.includes('Bhuse') || v.name.includes('Sakore') ? '🍅' : '🧅'}
+                </Text>
+
+                {/* Farmer Name & Village */}
+                <Text
+                  position={[-3.4, 0.8, 0]}
+                  fontSize={1.1}
+                  color="#ffffff"
+                  anchorX="left"
+                  anchorY="middle"
+                  outlineWidth={0.06}
+                  outlineColor="#000000"
+                >
                   {act?.farmer ?? un?.farmer ?? v.name}
                 </Text>
-                <Text position={[0, -2.6, 0]} fontSize={1.6} color="#aebbcc" anchorY="bottom">
-                  {`${v.name} · ${(act?.kg ?? un?.load_kg ?? 0).toFixed(0)} kg`}
+
+                {/* Weight & Commodity Info */}
+                <Text
+                  position={[-3.4, -0.15, 0]}
+                  fontSize={0.8}
+                  color="#cbd5e1"
+                  anchorX="left"
+                  anchorY="middle"
+                >
+                  {`${v.name} · ${(act?.kg ?? un?.load_kg ?? 0).toFixed(0)} kg harvest`}
                 </Text>
-                {un && (
-                  <Text position={[0, -5.0, 0]} fontSize={1.5} color={colour} anchorY="bottom">
-                    {`unserved · ${un.reason}`}
-                  </Text>
-                )}
+
+                {/* Real-time Status Badge */}
+                <Text
+                  position={[-3.4, -1.0, 0]}
+                  fontSize={0.7}
+                  color={colour}
+                  anchorX="left"
+                  anchorY="middle"
+                  font={undefined}
+                >
+                  {un
+                    ? `✗ UNMET · ${un.reason.toUpperCase()}`
+                    : act?.served
+                    ? '✓ COLLECTED ON TRUCK'
+                    : '⏳ READY FOR PICKUP'}
+                </Text>
               </Billboard>
             )}
           </group>

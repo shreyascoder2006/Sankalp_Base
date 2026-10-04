@@ -22,12 +22,14 @@ export default function CameraRig({
   villages,
   proj,
   playing,
+  zoomFactor = 1.0,
 }: {
   focus: Focus
   scenario: Scenario
   villages: Village[]
   proj: Projection
   playing: boolean
+  zoomFactor?: number
 }) {
   const ref = useRef<CameraControlsImpl>(null)
   const idleUntil = useRef(0)
@@ -52,24 +54,24 @@ export default function CameraRig({
 
     const centre = box.getCenter(new THREE.Vector3())
     const size = box.getSize(new THREE.Vector3())
-    const reach = Math.max(size.x, size.z, proj.widthUnits * 0.25)
-    const d = reach * 0.95
+    const reach = Math.max(size.x, size.z, proj.widthUnits * 0.35)
+    const d = reach * 1.45 * zoomFactor
 
     return [
-      centre.x + d * 0.55,
-      centre.y + d * 0.72,
-      centre.z + d * 0.85,
+      centre.x + d * 0.65,
+      centre.y + d * 0.82,
+      centre.z + d * 0.95,
       centre.x,
       centre.y,
       centre.z,
     ]
-  }, [scenario, villages, proj])
+  }, [scenario, villages, proj, zoomFactor])
 
   useEffect(() => {
     const c = ref.current
     if (!c) return
     c.minDistance = proj.widthUnits * 0.012
-    c.maxDistance = proj.widthUnits * 2.6
+    c.maxDistance = proj.widthUnits * 3.5
     c.maxPolarAngle = Math.PI * 0.48
     c.smoothTime = 0.7
     c.draggingSmoothTime = 0.12
@@ -94,14 +96,18 @@ export default function CameraRig({
       const v = villages.find((x) => x.key === focus.key)
       if (v) {
         const [x, y, z] = proj.point([v.lon, v.lat], 0)
-        const d = proj.widthUnits * 0.085
-        c.setLookAt(x + d * 0.6, y + d * 0.8, z + d * 0.95, x, y + 2, z, true)
+        const d = proj.widthUnits * 0.14 * zoomFactor
+        c.setLookAt(x + d * 0.7, y + d * 0.9, z + d * 1.05, x, y + 2, z, true)
       }
       return
     }
     if (focus.kind === 'overview') c.setLookAt(...overview, true)
     // a truck is a moving target, so it is tracked per-frame below instead
-  }, [focus, villages, proj, overview])
+  }, [focus, villages, proj, overview, zoomFactor])
+
+  useEffect(() => {
+    idleUntil.current = 0
+  }, [zoomFactor, focus])
 
   useFrame((_, dt) => {
     const c = ref.current
@@ -113,10 +119,19 @@ export default function CameraRig({
       // While the user is dragging, only the target follows, so they keep the angle
       // they chose and still stay locked on.
       if (performance.now() < idleUntil.current) {
-        c.setTarget(p.x, p.y + 1.5, p.z, true)
+        c.setTarget(p.x, p.y + 2.5, p.z, true)
       } else {
-        const d = proj.widthUnits * 0.05
-        c.setLookAt(p.x + d, p.y + d * 0.8, p.z + d * 1.1, p.x, p.y + 1.5, p.z, true)
+        // Zoom-adjusted chase cam: wide perspective of the road, landscape, and truck
+        const d = proj.widthUnits * 0.18 * zoomFactor
+        c.setLookAt(
+          p.x + d * 0.8,
+          p.y + d * 0.75 + 6 * Math.sqrt(zoomFactor),
+          p.z + d * 0.9,
+          p.x,
+          p.y + 2.0,
+          p.z,
+          true
+        )
       }
       return
     }

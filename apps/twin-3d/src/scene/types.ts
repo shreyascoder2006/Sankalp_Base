@@ -93,6 +93,26 @@ export interface Corridor {
   dest: { key: string; name: string; lon: number; lat: number }
 }
 
+export interface EconParam {
+  name: string
+  value: number
+  provenance: 'REAL' | 'MODELED' | 'SIMULATED'
+  source: string
+}
+
+export interface DayRow {
+  day: number
+  lots_offered: number
+  lots_served: number
+  match_rate: number
+  trucks_running: number
+  trips: number
+  forward_fill_rate: number
+  detour_km: number
+  revenue: number
+  co2_kg: number
+}
+
 export interface TwinData {
   generated_at: string
   corridor: Corridor
@@ -101,4 +121,6 @@ export interface TwinData {
   villages: Village[]
   scenarios: Scenario[]
   provenance: Record<string, string>
+  economics?: EconParam[]
+  days?: DayRow[]
 }

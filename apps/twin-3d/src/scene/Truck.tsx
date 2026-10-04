@@ -1,10 +1,25 @@
 import { Billboard, Text } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { truckPositions } from './CameraRig'
+import TruckModel from './TruckModel'
 import type { Projection } from './projection'
 import type { Trip } from './types'
+
+/**
+ * A 37 km corridor and a 5 m vehicle are four orders of magnitude apart, so no single
+ * scale serves both: at true size a truck is a sub-pixel speck, and at a size visible
+ * from the overview it ends up larger than the village it is collecting from -- which
+ * is exactly how the first version read.
+ *
+ * The model therefore holds true proportions and the group is scaled by camera
+ * distance, keeping roughly constant apparent size. Zoom in and it shrinks toward
+ * realistic; pull back and it stays findable. Map tools do the same with pins.
+ */
+const SCREEN_FACTOR = 0.009
+const MIN_LENGTH = 0.55 // ~55 m when close
+const MAX_LENGTH = 2.4 // ~240 m from the overview, still under a village footprint
 
 function sample(trip: Trip, pts: THREE.Vector3[], t: number) {
   const total = trip.cum_km[trip.cum_km.length - 1] ?? 0
@@ -34,9 +49,13 @@ export default function Truck({
   dimmed: boolean
   onSelect: (id: string) => void
 }) {
-  const body = useRef<THREE.Group>(null!)
+  const group = useRef<THREE.Group>(null!)
+  const spin = useRef(0)
+  const lastPos = useRef(new THREE.Vector3())
+  const { camera } = useThree()
+
   const pts = useMemo(
-    () => proj.path(trip.polyline, 1.1).map((p) => new THREE.Vector3(...p)),
+    () => proj.path(trip.polyline, 0.9).map((p) => new THREE.Vector3(...p)),
     [trip, proj],
   )
   const driven = useMemo(() => new THREE.BufferGeometry().setFromPoints(pts), [pts])
@@ -47,23 +66,40 @@ export default function Truck({
   const done = now > trip.arrive_min
   const t = (now - trip.depart_min) / Math.max(trip.arrive_min - trip.depart_min, 1e-6)
 
-  useFrame(() => {
-    const g = body.current
+  useFrame((_, dt) => {
+    const g = group.current
     if (!g) return
     const show = active || done
     g.visible = show
+    if (drivenLine.current) drivenLine.current.visible = show
+    if (!show) return
+
     const s = sample(trip, pts, done ? 1 : t)
     g.position.copy(s.pos)
-    g.position.y += 1.2
-    g.rotation.y = Math.atan2(s.dir.x, s.dir.z)
+    g.position.y += 0.08
+
+    // Face along the road, and bank slightly into the turn so motion reads as driving
+    // rather than sliding.
+    const yaw = Math.atan2(s.dir.x, s.dir.z)
+    const dYaw = ((yaw - g.rotation.y + Math.PI * 3) % (Math.PI * 2)) - Math.PI
+    g.rotation.y += dYaw * Math.min(1, dt * 6)
+    g.rotation.z = THREE.MathUtils.lerp(g.rotation.z, -dYaw * 0.6, Math.min(1, dt * 4))
+
+    const moved = s.pos.distanceTo(lastPos.current)
+    lastPos.current.copy(s.pos)
+
+    const dist = camera.position.distanceTo(g.position)
+    const len = THREE.MathUtils.clamp(dist * SCREEN_FACTOR, MIN_LENGTH, MAX_LENGTH)
+    g.scale.setScalar(len)
+
+    // Wheel rotation tied to ground speed, so it never looks like a sliding prop.
+    if (active && moved > 0) spin.current += (moved / Math.max(len * 0.085, 1e-4)) * 0.5
+
     truckPositions.set(trip.truck_id, g.position.clone())
     driven.setDrawRange(0, Math.max(2, Math.min(pts.length, s.index + 1)))
-    if (drivenLine.current) drivenLine.current.visible = show
   })
 
-  const colour = selected ? '#ffd166' : trip.detour_km > 12 ? '#ff9a6b' : '#3ddc97'
-  const opacity = dimmed ? 0.12 : 1
-
+  const accent = selected ? '#ffd166' : trip.detour_km > 12 ? '#ff9a6b' : '#3ddc97'
   const laden = Math.min(trip.served_kg / Math.max(trip.spare_kg, 1), 1)
 
   return (
@@ -75,7 +111,7 @@ export default function Truck({
             new THREE.LineBasicMaterial({
               color: '#44526a',
               transparent: true,
-              opacity: dimmed ? 0.05 : 0.22,
+              opacity: dimmed ? 0.05 : 0.2,
             }),
           )
         }
@@ -86,7 +122,7 @@ export default function Truck({
           new THREE.Line(
             driven,
             new THREE.LineBasicMaterial({
-              color: colour,
+              color: accent,
               transparent: true,
               opacity: dimmed ? 0.1 : selected ? 0.95 : 0.6,
             }),
@@ -95,7 +131,7 @@ export default function Truck({
       />
 
       <group
-        ref={body}
+        ref={group}
         onClick={(e) => {
           e.stopPropagation()
           onSelect(trip.truck_id)
@@ -108,37 +144,12 @@ export default function Truck({
           document.body.style.cursor = 'auto'
         }}
       >
-        {/* cab */}
-        <mesh position={[0, 0.1, 1.05]} castShadow>
-          <boxGeometry args={[1.5, 1.5, 1.3]} />
-          <meshStandardMaterial
-            color={colour} emissive={colour} emissiveIntensity={selected ? 1.1 : 0.45}
-            metalness={0.3} roughness={0.45} transparent={dimmed} opacity={opacity}
-          />
-        </mesh>
-        {/* bed */}
-        <mesh position={[0, -0.1, -0.7]} castShadow>
-          <boxGeometry args={[1.7, 0.9, 2.5]} />
-          <meshStandardMaterial
-            color="#2b3b4e" metalness={0.4} roughness={0.6}
-            transparent={dimmed} opacity={opacity}
-          />
-        </mesh>
-        {/* cargo fill */}
-        {laden > 0.02 && (
-          <mesh position={[0, 0.35 + laden * 0.5, -0.7]}>
-            <boxGeometry args={[1.45, Math.max(0.25, laden * 1.3), 2.2]} />
-            <meshStandardMaterial
-              color="#f0b429" emissive="#f0b429" emissiveIntensity={0.55}
-              transparent opacity={dimmed ? 0.12 : 0.9}
-            />
-          </mesh>
-        )}
-        <pointLight color={colour} intensity={selected ? 32 : 10} distance={30} />
+        <TruckModel accent={accent} laden={laden} headlights={now < 180} spin={spin} />
+        <pointLight color={accent} intensity={selected ? 2.2 : 0.7} distance={6} />
 
         {selected && (
-          <Billboard position={[0, 5.5, 0]}>
-            <Text fontSize={2.2} color="#ffd166" anchorY="bottom" outlineWidth={0.12} outlineColor="#17120a">
+          <Billboard position={[0, 1.15, 0]}>
+            <Text fontSize={0.4} color="#ffd166" anchorY="bottom" outlineWidth={0.02} outlineColor="#17120a">
               {trip.truck_id}
             </Text>
           </Billboard>

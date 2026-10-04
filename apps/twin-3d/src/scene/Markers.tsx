@@ -2,6 +2,7 @@ import { Billboard, Text } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import * as THREE from 'three'
+import Settlement from './Settlement'
 import type { Projection } from './projection'
 import type { Scenario, Unserved, Village } from './types'
 
@@ -67,27 +68,25 @@ export default function Markers({
             ? act.served ? '#3ddc97' : '#f0b429'
             : v.branch_size > 1 ? '#2f6a55' : '#39434f'
 
+        // ~700 m across for a village, a little more where it matters to this scenario
+        const radius = (inPlay ? 3.6 : 2.8) + (v.branch_size > 1 ? 0.5 : 0)
         const waiting = un ? un.load_kg : act && !act.served ? act.kg : 0
         const h = Math.min(waiting / 45, 12)
 
         return (
           <group key={v.key} position={[x, y, z]}>
-            {inPlay && <Pulse colour={colour} radius={3.4} />}
-            <mesh
+            {inPlay && <Pulse colour={colour} radius={radius * 1.5} />}
+            <group
               onClick={(e) => { e.stopPropagation(); onVillage(v.key) }}
               onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer' }}
               onPointerOut={() => { document.body.style.cursor = 'auto' }}
             >
-              <cylinderGeometry args={[inPlay ? 1.3 : 0.7, inPlay ? 1.3 : 0.7, 0.4, 16]} />
-              <meshStandardMaterial
-                color={colour} emissive={colour}
-                emissiveIntensity={inPlay ? 0.85 : 0.15}
-              />
-            </mesh>
+              <Settlement seed={v.key} radius={radius} colour={colour} lit={inPlay} />
+            </group>
 
             {h > 0.1 && (
               <mesh position={[0, h / 2, 0]}>
-                <cylinderGeometry args={[0.5, 0.5, h, 12]} />
+                <cylinderGeometry args={[0.8, 0.8, h, 12]} />
                 <meshStandardMaterial
                   color={colour} emissive={colour} emissiveIntensity={0.5}
                   transparent opacity={0.78}
@@ -96,7 +95,7 @@ export default function Markers({
             )}
 
             {inPlay && (
-              <Billboard position={[0, h + 4.4, 0]}>
+              <Billboard position={[0, h + 5.2, 0]}>
                 <Text fontSize={2.3} color={colour} anchorY="bottom" outlineWidth={0.1} outlineColor="#0a0f14">
                   {act?.farmer ?? un?.farmer ?? v.name}
                 </Text>

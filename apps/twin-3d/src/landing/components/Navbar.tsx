@@ -19,7 +19,7 @@ export default function Navbar({ onLaunchTwin, onSelectTab }: NavbarProps) {
     <div className="nav-wrap">
       <nav className="nav frosted">
         <span className="wordmark" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <span>🌿</span> Monsoon
+          <span>🌿</span> KrishiSetu
         </span>
         <div className="nav-links">
           {LINKS.map(([label, href]) => (

@@ -16,11 +16,16 @@ export default function Hero({ onLaunchTwin, onSelectTab }: HeroProps) {
       <div className="ov2" />
       <div className="ov3" />
       <div className="hero-content">
-        <span className="hero-eyebrow">🌿 Uber for Harvest · SANKALP 2026</span>
-        <h1>Weather any storm</h1>
-        <p className="hero-sub">
-          Voice-first freight matching that fills the trucks rural India already runs,
-          in both directions. Forward pooling for smallholders, backhaul monetization for SCV drivers.
+        <span className="hero-eyebrow">🌿 Voice-First Rural Logistics Network</span>
+        <h1 style={{ fontSize: 'clamp(3rem, 6.8vw, 5.4rem)', fontWeight: 800, letterSpacing: '-0.035em', lineHeight: 1.02, color: 'var(--ink)', marginBottom: '8px' }}>
+          KrishiSetu
+        </h1>
+        <div style={{ fontSize: 'clamp(1.22rem, 2.4vw, 1.7rem)', fontWeight: 600, letterSpacing: '-0.015em', color: 'rgba(25, 25, 25, 0.92)', marginBottom: '12px' }}>
+          Every Kilo Deserves a Ride.
+        </div>
+        <p className="hero-sub" style={{ marginTop: '4px', maxWidth: '500px' }}>
+          Voice-first freight pooling that fills empty truck beds across rural India.
+          Turning stranded 40 kg harvests into profitable APMC mandi runs.
         </p>
         <div className="hero-ctas">
           <button

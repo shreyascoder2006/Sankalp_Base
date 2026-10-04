@@ -179,7 +179,7 @@ export default function App() {
       <div className="loading" style={{ display: 'flex', flexDirection: 'column', gap: '14px', alignItems: 'center' }}>
         <div>scenarios.json missing — run scripts/export_scenarios.py</div>
         <button className="btn" onClick={() => setActiveTab('landing')}>
-          🌿 View Monsoon Dashboard
+          🌿 View KrishiSetu Dashboard
         </button>
       </div>
     )
@@ -190,7 +190,7 @@ export default function App() {
       <div className="loading" style={{ display: 'flex', flexDirection: 'column', gap: '14px', alignItems: 'center' }}>
         <div>Loading corridor simulation…</div>
         <button className="btn" onClick={() => setActiveTab('landing')}>
-          🌿 View Monsoon Dashboard
+          🌿 View KrishiSetu Dashboard
         </button>
       </div>
     )

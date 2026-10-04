@@ -18,7 +18,7 @@ interface NavRailProps {
 const TABS: { key: NavTab; label: string; icon: ReactNode }[] = [
   {
     key: 'landing',
-    label: '🌿 Monsoon Dashboard',
+    label: '🌿 KrishiSetu',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2L2 7l10 5 10-5-10-5z" />
@@ -113,7 +113,7 @@ export default function NavRail({ active, onSelect }: NavRailProps) {
       <button
         className={`nav-brand-btn${active === 'landing' ? ' active' : ''}`}
         onClick={() => onSelect(active === 'landing' ? 'scenarios' : 'landing')}
-        title={active === 'landing' ? 'View 3D Simulation' : '🌿 Monsoon Executive Dashboard'}
+        title={active === 'landing' ? 'View 3D Simulation' : '🌿 KrishiSetu Executive Dashboard'}
       >
         <span className="brand-leaf-icon">🌿</span>
       </button>

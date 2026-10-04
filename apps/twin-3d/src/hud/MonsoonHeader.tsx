@@ -22,12 +22,12 @@ export default function MonsoonHeader({
         <button
           className="monsoon-brand-badge-btn"
           onClick={() => onSelectTab('landing')}
-          title="Return to Monsoon Executive Dashboard"
+          title="Return to KrishiSetu Executive Dashboard"
         >
           <div className="monsoon-leaf-glow">🌿</div>
           <div className="monsoon-brand-col">
-            <span className="monsoon-brand-name">Monsoon</span>
-            <span className="monsoon-brand-sub">LOGISTICS OS</span>
+            <span className="monsoon-brand-name">KrishiSetu</span>
+            <span className="monsoon-brand-sub">RURAL FREIGHT OS</span>
           </div>
         </button>
 
@@ -47,7 +47,7 @@ export default function MonsoonHeader({
           onClick={() => onSelectTab('landing')}
         >
           <span className="pill-icon">🌿</span>
-          <span>Monsoon Dashboard</span>
+          <span>KrishiSetu</span>
         </button>
 
         <button
@@ -134,7 +134,7 @@ export default function MonsoonHeader({
             className="monsoon-quick-action-btn"
             onClick={() => onSelectTab('landing')}
           >
-            <span>🌿 Monsoon Dashboard</span>
+            <span>🌿 KrishiSetu</span>
             <span className="action-arrow">↗</span>
           </button>
         ) : (

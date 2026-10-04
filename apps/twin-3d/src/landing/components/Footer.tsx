@@ -43,9 +43,9 @@ export default function Footer({ onLaunchTwin }: FooterProps) {
 
         <div className="footer-bar">
           <div>
-            <span className="wordmark">Monsoon</span>
+            <span className="wordmark">KrishiSetu</span>
             <p className="brand-sub">
-              Voice-first freight for rural Bharat · A SANKALP 2026 project with Satin Finserv
+              Voice-first freight for rural Bharat · In partnership with Satin Finserv
             </p>
           </div>
           <div className="footer-links">

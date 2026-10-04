@@ -4,9 +4,13 @@
  * waits forever for a non-zero size and never draws a single frame -- a black canvas
  * with no error anywhere.
  *
- * This wraps ResizeObserver so observe() always reports the element's current rect on
- * the next frame, and keeps reporting on window resize. Where the native implementation
+ * This wraps ResizeObserver so observe() always reports the element's current rect
+ * shortly after, and keeps reporting on window resize. Where the native implementation
  * works, this is one harmless duplicate callback.
+ *
+ * The delivery is scheduled with setTimeout rather than requestAnimationFrame on
+ * purpose: a hidden or backgrounded page suspends rAF entirely, which would leave the
+ * canvas sizeless for exactly as long as nobody is looking at it.
  */
 
 type Cb = ResizeObserverCallback
@@ -53,7 +57,7 @@ export function installResizeShim(): void {
     observe(target: Element, options?: ResizeObserverOptions) {
       this.targets.add(target)
       this.native?.observe(target, options)
-      requestAnimationFrame(() => this.flush())
+      setTimeout(() => this.flush(), 0)
     }
 
     unobserve(target: Element) {

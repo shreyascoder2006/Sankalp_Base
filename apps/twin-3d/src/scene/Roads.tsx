@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import * as THREE from 'three'
 import type { Projection } from './projection'
-import type { SceneData } from './types'
+import type { TwinData } from './types'
 
 const STYLE: Record<string, { color: string; opacity: number }> = {
   motorway: { color: '#8dbcff', opacity: 0.6 },
@@ -12,7 +12,7 @@ const STYLE: Record<string, { color: string; opacity: number }> = {
 }
 
 /** One merged LineSegments per road class: ~1,500 ways would otherwise be 1,500 draw calls. */
-export default function Roads({ data, proj }: { data: SceneData; proj: Projection }) {
+export default function Roads({ data, proj }: { data: TwinData; proj: Projection }) {
   const layers = useMemo(() => {
     const verts = new Map<string, number[]>()
     for (const r of data.roads) {

@@ -1,4 +1,4 @@
-import type { SceneData, LonLat } from './types'
+import type { TwinData, LonLat } from './types'
 
 /** Scene units are hundreds of metres, so a 35 km corridor spans ~350 units. */
 export const UNITS_PER_M = 0.01
@@ -13,11 +13,11 @@ export class Projection {
   readonly mPerDegLat = 110574
   readonly elev: number[] | null
   readonly grid: number
-  readonly bbox: SceneData['corridor']['bbox']
+  readonly bbox: TwinData['corridor']['bbox']
   readonly minElev: number
   readonly maxElev: number
 
-  constructor(data: SceneData) {
+  constructor(data: TwinData) {
     const b = data.corridor.bbox
     this.bbox = b
     this.lon0 = (b.west + b.east) / 2

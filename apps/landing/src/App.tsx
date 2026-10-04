@@ -1,14 +1,30 @@
-import Navbar from './components/Navbar'
+import Benefits from './components/Benefits'
+import Footer from './components/Footer'
 import Hero from './components/Hero'
+import Impact from './components/Impact'
+import Journey from './components/Journey'
+import Navbar from './components/Navbar'
+import Pricing from './components/Pricing'
+import Problem from './components/Problem'
+import Roadmap from './components/Roadmap'
+import Solution from './components/Solution'
+import { useReveal } from './useReveal'
 import './index.css'
 
-function App() {
+export default function App() {
+  useReveal()
   return (
-    <div className="w-full min-h-screen">
+    <>
       <Navbar />
       <Hero />
-    </div>
+      <Problem />
+      <Solution />
+      <Journey />
+      <Pricing />
+      <Benefits />
+      <Impact />
+      <Roadmap />
+      <Footer />
+    </>
   )
 }
-
-export default App

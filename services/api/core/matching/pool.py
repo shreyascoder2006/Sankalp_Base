@@ -40,6 +40,14 @@ class PoolPolicy:
     max_stops: int = 5
     max_route_minutes: float | None = 240.0
     solver_seconds: int = 5
+    solver_ms: int | None = None
+    """Sub-second budget, overriding solver_seconds. These instances are tiny -- a
+    handful of optional nodes -- so sweeps that solve thousands of them need a floor
+    well below one second to finish at all."""
+
+    @property
+    def budget_ms(self) -> int:
+        return self.solver_ms if self.solver_ms is not None else self.solver_seconds * 1000
 
 
 def _lot_revenue(weight_kg: float, trunk_km: float) -> float:
@@ -128,7 +136,7 @@ def solve(
     params.local_search_metaheuristic = (
         routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
     )
-    params.time_limit.FromSeconds(policy.solver_seconds)
+    params.time_limit.FromMilliseconds(policy.budget_ms)
 
     solution = routing.SolveWithParameters(params)
     if solution is None:

@@ -15,7 +15,7 @@ pytestmark = pytest.mark.skipif(
 @pytest.fixture(scope="module")
 def points():
     idx = load_index(DERIVED, "pimpalgaon", "nashik_apmc")
-    return sweep(idx, [100, 400], [15, 60], days=1, solver_seconds=1)
+    return sweep(idx, [100, 400], [15, 60], days=1, solver_ms=300)
 
 
 def test_fill_and_match_pull_in_opposite_directions(points):

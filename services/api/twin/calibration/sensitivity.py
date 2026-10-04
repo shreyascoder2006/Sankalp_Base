@@ -30,9 +30,9 @@ def sweep(
     truck_counts: list[int],
     days: int = 5,
     seed: int = 7,
-    solver_seconds: int = 1,
+    solver_ms: int = 300,
 ) -> list[SweepPoint]:
-    policy = PoolPolicy(solver_seconds=solver_seconds)
+    policy = PoolPolicy(solver_ms=solver_ms)
     out = []
     for farmers in farmer_counts:
         for trucks in truck_counts:

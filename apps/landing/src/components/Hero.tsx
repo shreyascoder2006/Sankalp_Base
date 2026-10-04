@@ -1,3 +1,5 @@
+import { TWIN_URL } from '../config'
+
 const SPONSORS = ['Northwind', 'Vantage', 'Kestrel', 'Meridian', 'Sonaris']
 
 export default function Hero() {
@@ -16,7 +18,7 @@ export default function Hero() {
           spikes, and everything in between.
         </p>
         <div className="hero-ctas">
-          <a href="#problem" className="btn btn-dark">
+          <a href={TWIN_URL} className="btn btn-dark">
             Get Started
           </a>
           <a href="#solution" className="btn btn-light">

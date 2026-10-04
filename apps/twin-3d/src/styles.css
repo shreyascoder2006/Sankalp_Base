@@ -108,3 +108,11 @@ input[type=range] { flex: 1; accent-color: var(--accent); cursor: pointer; }
 .scene-error h4 { color: var(--danger); font-size: 14px; margin-bottom: 10px; }
 .scene-error pre { font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.6; white-space: pre-wrap; color: var(--ink); }
 .scene-error pre.dim { color: var(--faint); margin-top: 10px; }
+
+.back {
+  display: inline-block; margin-bottom: 12px; font-size: 11px; font-weight: 600;
+  letter-spacing: .04em; color: var(--dim); text-decoration: none;
+  padding: 4px 9px; border-radius: 7px; border: 1px solid var(--edge);
+  background: rgba(255,255,255,0.05); transition: color .15s, background .15s;
+}
+.back:hover { color: var(--ink); background: rgba(255,255,255,0.12); }

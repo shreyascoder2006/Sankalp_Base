@@ -10,6 +10,7 @@ import SceneBoundary from './scene/SceneBoundary'
 import Terrain from './scene/Terrain'
 import Truck from './scene/Truck'
 import UnservedTrace from './scene/UnservedTrace'
+import { SITE_URL } from './config'
 import { Projection } from './scene/projection'
 import type { Scenario, TwinData } from './scene/types'
 import './styles.css'
@@ -166,6 +167,7 @@ export default function App() {
 
       <div className="hud">
         <div className="panel scenarios">
+          <a className="back" href={SITE_URL}>&larr; Monsoon</a>
           <div className="eyebrow">Scenarios</div>
           {data.scenarios.map((s, i) => (
             <button key={s.key} className={`scn${i === idx ? ' on' : ''}`} onClick={() => setIdx(i)}>

@@ -134,6 +134,29 @@ class RoadGraph:
             hop = prev
         return Route(metres, float(d[dst]), True)
 
+    def path(self, src: int, dst: int) -> list[int]:
+        """Node indices along the chosen route. Needed to draw a route, not just price it."""
+        _, pred = dijkstra(self.time, directed=True, indices=src, return_predecessors=True)
+        hops, hop = [dst], dst
+        while hop != src:
+            prev = int(pred[hop])
+            if prev < 0:
+                return []
+            hops.append(prev)
+            hop = prev
+        hops.reverse()
+        return hops
+
+    def polyline(self, src: int, dst: int, every: int = 1) -> list[list[float]]:
+        """[lon, lat] pairs along the route; `every` thins dense node runs."""
+        nodes = self.path(src, dst)
+        if not nodes:
+            return []
+        kept = nodes[::every]
+        if kept[-1] != nodes[-1]:
+            kept.append(nodes[-1])
+        return [[round(float(self.lon[i]), 6), round(float(self.lat[i]), 6)] for i in kept]
+
     def route_many(self, src: int, dsts: list[int]) -> list[Route]:
         d, pred = dijkstra(
             self.time, directed=True, indices=src, return_predecessors=True

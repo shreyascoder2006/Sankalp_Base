@@ -1,0 +1,86 @@
+:root {
+  --ink: #e8edf4; --dim: #93a1b4; --faint: #5d6a7b;
+  --real: #3ddc97; --modeled: #f0b429; --sim: #8894a6; --accent: #5b9dff; --danger: #ff6b6b;
+  --glass: rgba(10, 16, 24, 0.72); --edge: rgba(255, 255, 255, 0.1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+body {
+  background: #05080c; color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+canvas { display: block; }
+
+.hud { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+.hud > * { pointer-events: auto; }
+
+.panel {
+  background: var(--glass); border: 1px solid var(--edge);
+  border-radius: 12px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+
+.topleft { position: absolute; top: 18px; left: 18px; padding: 15px 17px; max-width: 350px; }
+.eyebrow { font-size: 10px; letter-spacing: 0.17em; text-transform: uppercase; color: var(--faint); }
+.title { font-size: 17px; font-weight: 600; margin-top: 7px; letter-spacing: -0.015em; }
+.sub { font-size: 12px; color: var(--dim); margin-top: 7px; line-height: 1.55; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 600;
+  letter-spacing: 0.08em; padding: 3px 7px; border-radius: 5px; text-transform: uppercase;
+}
+.chip::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.chip.REAL { color: var(--real); background: rgba(61,220,151,0.12); }
+.chip.MODELED { color: var(--modeled); background: rgba(240,180,41,0.12); }
+.chip.SIMULATED, .chip.ABSENT { color: var(--sim); background: rgba(136,148,166,0.14); }
+
+.topright { position: absolute; top: 18px; right: 18px; padding: 14px 16px; width: 262px; }
+.stat { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; font-size: 12px; }
+.stat + .stat { border-top: 1px solid rgba(255,255,255,0.055); }
+.stat span { color: var(--dim); }
+.stat b { font-size: 15px; font-weight: 600; }
+
+.bottom {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: 20px;
+  width: min(880px, calc(100% - 36px)); padding: 14px 18px;
+}
+.clock { display: flex; align-items: center; gap: 14px; }
+.btn {
+  background: rgba(255,255,255,0.07); border: 1px solid var(--edge); color: var(--ink);
+  border-radius: 8px; padding: 7px 13px; font-size: 12px; font-weight: 500; cursor: pointer;
+  font-family: inherit; white-space: nowrap;
+}
+.btn:hover { background: rgba(255,255,255,0.13); }
+.btn.on { background: rgba(91,157,255,0.2); border-color: rgba(91,157,255,0.45); color: #cfe0ff; }
+input[type=range] { flex: 1; accent-color: var(--accent); cursor: pointer; }
+.time { font-size: 19px; font-weight: 600; min-width: 74px; }
+
+.ticks { position: relative; height: 16px; margin-top: 9px; }
+.tick { position: absolute; top: 0; width: 2px; height: 9px; border-radius: 1px; }
+.tick.pickup { background: var(--real); }
+.tick.shared { background: var(--modeled); height: 14px; }
+
+.legend { display: flex; gap: 15px; margin-top: 9px; font-size: 11px; color: var(--faint); flex-wrap: wrap; }
+.legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+
+.inspect { position: absolute; left: 18px; bottom: 132px; padding: 13px 15px; width: 300px; font-size: 12px; }
+.inspect h4 { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.row { display: flex; justify-content: space-between; padding: 3px 0; color: var(--dim); }
+.row b { color: var(--ink); font-weight: 500; }
+.free { color: var(--real); font-weight: 600; }
+
+.loading { position: fixed; inset: 0; display: grid; place-items: center; color: var(--dim); font-size: 13px; }
+
+.scene-error {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  padding: 20px 22px; max-width: 640px; z-index: 20;
+  border-color: rgba(255, 107, 107, 0.35);
+}
+.scene-error h4 { color: var(--danger); font-size: 14px; margin-bottom: 10px; }
+.scene-error pre {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.6;
+  white-space: pre-wrap; color: var(--ink);
+}
+.scene-error pre.dim { color: var(--faint); margin-top: 10px; }
